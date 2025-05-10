@@ -18,20 +18,21 @@ if ($data && $data['status'] == 1) {
         case 200000: $gameCoin = 2500; break;
         case 500000: $gameCoin = 7000; break;
         case 1000000: $gameCoin = 15000; break;
-        default: $gameCoin = (int)($amount_raw / 100); break; // fallback
+        default: $gameCoin = (int)($amount_raw / 100); break;
     }
 
     // 📡 Gọi CloudScript PlayFab để cộng tiền
-   $cloudScriptUrl = "https://5A23B.playfabapi.com/Server/ExecuteCloudScript";
-   $secretKey = "FGUBFFXGWSM4DHNMW7AIZZ8UOOMYI4UCKDXAH7WQTK5WQHGAIA"; // thay bằng Server Secret Key
+    $cloudScriptUrl = "https://5A23B.playfabapi.com/Server/ExecuteCloudScript";
+    $secretKey = "FGUBFFXGWSM4DHNMW7AIZZ8UOOMYI4UCKDXAH7WQTK5WQHGAIA"; // Server Secret Key
 
     $payload = [
         "FunctionName" => "RechargeFromCard",
         "FunctionParameter" => [
             "amount" => $gameCoin,
-            "playFabId" => $playfabId,
             "napmenhgia" => $amount_raw
-        ]
+        ],
+        "PlayFabId" => $playfabId, // BẮT BUỘC
+        "GeneratePlayStreamEvent" => true
     ];
 
     $headers = [
@@ -48,6 +49,6 @@ if ($data && $data['status'] == 1) {
 
     // 📝 Ghi log
     file_put_contents("log_napthe.txt", "[".date("Y-m-d H:i:s")."] "
-        . "PlayFabId: $playfabId | Mệnh giá: $amount_raw | Coin: $gameCoin\n", FILE_APPEND);
+        . "PlayFabId: $playfabId | Mệnh giá: $amount_raw | Coin: $gameCoin | API Response: $res\n", FILE_APPEND);
 }
 ?>
