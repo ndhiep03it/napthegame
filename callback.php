@@ -23,7 +23,7 @@ if ($data && $data['status'] == 1) {
 
     // 📡 Gọi CloudScript PlayFab để cộng tiền
    $cloudScriptUrl = "https://5A23B.playfabapi.com/Server/ExecuteCloudScript";
-   $secretKey = "YOUR_SECRET_KEY"; // thay bằng Server Secret Key
+   $secretKey = "FGUBFFXGWSM4DHNMW7AIZZ8UOOMYI4UCKDXAH7WQTK5WQHGAIA"; // thay bằng Server Secret Key
 
     $payload = [
         "FunctionName" => "RechargeFromCard",
